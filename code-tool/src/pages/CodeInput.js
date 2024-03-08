@@ -46,12 +46,10 @@ export default function CodeInput() {
 
       // Delay before fetching the generated comments
       setTimeout(() => {
-        // Display the generated comments after 2-3 seconds
-        alert('Generated Comments:\n' + generatedComments);
       }, 2000);
     } catch (error) {
-      console.error('Error handling submission:', error);
-      alert('An error occurred. Please try again later.');
+      console.log('Error handling submission:', error);
+
     }
   }
 
