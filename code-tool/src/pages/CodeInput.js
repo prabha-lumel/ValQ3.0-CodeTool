@@ -6,7 +6,7 @@ import key from "./APIKey";
 async function generateComments(codeInput) {
   try {
     const openai = new OpenAI({
-      apiKey: key(),
+      apiKey: "Empty",
       dangerouslyAllowBrowser: true
     });
 
