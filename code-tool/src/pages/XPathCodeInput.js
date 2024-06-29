@@ -7,7 +7,7 @@ async function generateComments(codeInput) {
 
     // Initialize OpenAI client
     const openai = new OpenAI({
-      apiKey: process.env.REACT_APP_API__KEY,
+      apiKey: process.env.REACT_APP_API_KEY,
       baseURL: 'https://integrate.api.nvidia.com/v1',
     });
 
