@@ -9,6 +9,7 @@ async function generateComments(codeInput) {
     const openai = new OpenAI({
       apiKey: process.env.REACT_APP_API_KEY,
       baseURL: 'https://integrate.api.nvidia.com/v1',
+      dangerouslyAllowBrowser: true
     });
 
 
