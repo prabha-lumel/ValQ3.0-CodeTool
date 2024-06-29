@@ -1,31 +1,42 @@
 import React, { useState } from 'react';
-import OpenAI from "openai";
+import OpenAI from 'openai';
 import key from "./APIKey";
 
 // Function to generate comments for the provided code snippet using OpenAI
 async function generateComments(codeInput) {
   try {
+
+    // Initialize OpenAI client
     const openai = new OpenAI({
-      apiKey: "Empty",
-      dangerouslyAllowBrowser: true
+      apiKey: process.env.API_KEY,
+      baseURL: 'https://integrate.api.nvidia.com/v1',
     });
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+
+    const completion = await openai.chat.completions.create({
+      model: "meta/llama3-70b-instruct",
       messages: [
         {
           "role": "system",
           "content": `Please provide a code snippet. I will generate functions for each XPath provided, where each function clicks on the corresponding element and logs a message using 'I.say()'. For example:\n\n/**\n * Clicks the element associated with the XPath provided.\n */\nasync clickData() {\n  await I.click("//span[contains(@class,'toolbar-icon-title with-icon') and text()='Data']");\n  await I.say('Clicked on "Data" element.');\n}\n\n/**\n * Clicks the element associated with the XPath provided.\n */\nasync clickAddNewNode() {\n  await I.click('addNewNode.addNewNode');\n  await I.say('Clicked on "Add New Node" element.');\n}\n\n/**\n * Clicks the element associated with the XPath provided.\n */\nasync clickClosePopupButton() {\n  await I.click('addNewNode.closePopupButton');\n  await I.say('Clicked on "Close Popup Button" element.');\n}`
-        }
-        ,
+        },
         {
           "role": "user",
           "content": codeInput
         }
-      ]
+      ],
+      temperature: 0.5,
+      top_p: 1,
+      max_tokens: 1024,
+      stream: true,
     });
 
-    return response.choices[0].message.content;
+    let generatedComments = '';
+    for await (const chunk of completion) {
+      generatedComments += chunk.choices[0]?.delta?.content || '';
+    }
+
+    return generatedComments;
   } catch (error) {
     console.error('Error generating code comments:', error);
     throw error;
