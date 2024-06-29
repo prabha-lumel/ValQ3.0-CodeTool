@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import OpenAI from 'openai';
-import key from "./APIKey";
+// import key from "./APIKey";
 
 // Function to generate comments for the provided code snippet using OpenAI
 async function generateComments(codeInput) {
@@ -8,8 +8,9 @@ async function generateComments(codeInput) {
 
     // Initialize OpenAI client
     const openai = new OpenAI({
-      apiKey: process.env.API_KEY,
+      apiKey: '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',
       baseURL: 'https://integrate.api.nvidia.com/v1',
+      dangerouslyAllowBrowser: true
     });
 
 
