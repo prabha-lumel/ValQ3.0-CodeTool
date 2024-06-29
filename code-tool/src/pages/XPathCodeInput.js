@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import OpenAI from 'openai';
-// import key from "./APIKey";
 
 // Function to generate comments for the provided code snippet using OpenAI
 async function generateComments(codeInput) {
