@@ -8,9 +8,8 @@ async function generateComments(codeInput) {
 
     // Initialize OpenAI client
     const openai = new OpenAI({
-      apiKey: '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',
+      apiKey: process.env.REACT_APP_API__KEY,
       baseURL: 'https://integrate.api.nvidia.com/v1',
-      dangerouslyAllowBrowser: true
     });
 
 
